@@ -2,6 +2,8 @@
 ### Storing them here so they're easily accessible.
 
 import tensorflow as tf
+import matplotlib.image as mpimg
+import random
 
 # Create a function to import an image and resize it to be able to be used with our model
 def load_and_prep_image(filename, img_shape=224, scale=True):
@@ -286,3 +288,17 @@ def calculate_results(y_true, y_pred):
                   "recall": model_recall,
                   "f1": model_f1}
   return model_results
+
+
+def view_random_image(target_dir, target_class):
+  target_folder = target_dir+target_class
+
+  # get random image
+  random_image = random.sample(os.listdir(target_folder), 1)
+  img = mpimg.imread(target_folder + '/' + random_image[0])
+  plt.imshow(img)
+  plt.title(target_class)
+  plt.axis('off')
+
+  print(f'Image shape: {img.shape}')
+  return img
